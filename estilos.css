@@ -10,10 +10,13 @@
 
 /* Fondo */
 body {
-    background: url('http://www.materialesplutarco.com/wp-content/uploads/2017/12/cemento-cruz-azul-sacos.png')
-        no-repeat center center fixed;
+    background-image: url('fondo.png');
     background-size: cover;
-    color: #333;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
 }
 
 /* Encabezado */
@@ -119,4 +122,5 @@ footer {
     margin-top: 30px;
     border-top: 4px solid #005bbb;
 }
+
 
