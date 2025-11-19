@@ -5,32 +5,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ferremateriales Huitzatarito</title>
     <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
-    <!-- Header -->
+
+    <!-- Encabezado -->
     <header>
         <h1>Ferremateriales Huitzatarito</h1>
-        
     </header>
 
-    <!-- Sección de Contacto -->
+    <!-- Estado del Local -->
+    <div id="estado-local" class="estado-local">
+        <span id="mensaje-estado"></span>
+    </div>
+
+    <!-- Contacto -->
     <section id="contacto" class="seccion">
         <h2>Contacto</h2>
-        <p>Teléfono: <a href="tel:52 4291155061">+52 4291155061</a></p>
-        <p>Correo electrónico: <a href="mailto:ferrematerialesgallo@outlook.com">ferrematerialesgallo@outlook.com</a></p>
+
+        <div class="contacto-botones">
+
+            <!-- Llamada -->
+            <a href="tel:+524291155061" class="btn-contacto">
+                <i class="fa-solid fa-phone"></i> Llamar
+            </a>
+
+            <!-- WhatsApp -->
+            <a href="https://wa.me/524291155061?text=Hola%2C%20quiero%20información"
+               target="_blank" class="btn-contacto whatsapp">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </a>
+
+            <!-- Facebook -->
+            <a href="https://www.facebook.com/share/1JPrtTWrC9/?mibextid=wwXIfr"
+               target="_blank" class="btn-contacto facebook">
+                <i class="fa-brands fa-facebook"></i> Facebook
+            </a>
+
+        </div>
     </section>
 
-    <!-- Sección de Dirección -->
+    <!-- Ubicación -->
     <section id="ubicacion" class="seccion">
         <h2>Ubicación</h2>
         <p>CARR. ESTATAL ABASOLO-EL TULE KM 5+150 , Abasolo, Gto., México</p>
-         <p>C.P. 36985, ABASOLO, GTO.</p>
-        <p>Horario de atención: Lunes a Viernes, 7:00 AM - 6:00 PM y Sabado de 7:00 AM a 4:00 PM</p>
+        <p>C.P. 36985, Abasolo, Gto.</p>
+        <p>Horario de atención: Lunes a Viernes, 7:00 AM - 6:00 PM y Sábado de 7:00 AM a 4:00 PM</p>
+
+        <!-- MAPA INTERACTIVO EXACTO -->
+        <div class="mapa-container">
+            <iframe
+                width="100%"
+                height="350"
+                style="border:0;"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1500!2d-101.56273927751131!3d20.49824089417759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses-419!2smx!4v1700000000000">
+            </iframe>
+        </div>
     </section>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 Ferremateriales Huitzatarito</p>
+        <p></p>
+        <p>Abasolo, Guanajuato, México</p>
     </footer>
+
+    <!-- Script Horario ABIERTO/CERRADO -->
+    <script>
+        function actualizarEstado() {
+            const ahora = new Date();
+            const dia = ahora.getDay(); // 0 Domingo, 1 Lunes, ...
+            const hora = ahora.getHours();
+            const minutos = ahora.getMinutes();
+
+            const abre_semana = { hora: 7, min: 0 };
+            const cierra_semana = { hora: 18, min: 0 };
+
+            const abre_sabado = { hora: 7, min: 0 };
+            const cierra_sabado = { hora: 16, min: 0 };
+
+            let abierto = false;
+            let abre, cierra;
+
+            if (dia >= 1 && dia <= 5) {
+                abre = abre_semana;
+                cierra = cierra_semana;
+            } else if (dia === 6) {
+                abre = abre_sabado;
+                cierra = cierra_sabado;
+            } else {
+                abierto = false;
+            }
+
+            if (abre && cierra) {
+                const minutos_actual = hora * 60 + minutos;
+                const min_abre = abre.hora * 60 + abre.min;
+                const min_cierra = cierra.hora * 60 + cierra.min;
+
+                abierto = minutos_actual >= min_abre && minutos_actual < min_cierra;
+            }
+
+            const mensaje = document.getElementById("mensaje-estado");
+            const contenedor = document.getElementById("estado-local");
+
+            if (abierto) {
+                mensaje.textContent = "Estamos ABIERTO";
+                contenedor.classList.add("abierto");
+                contenedor.classList.remove("cerrado");
+            } else {
+                mensaje.textContent = "CERRADO";
+                contenedor.classList.add("cerrado");
+                contenedor.classList.remove("abierto");
+            }
+        }
+
+        actualizarEstado();
+    </script>
+
 </body>
 </html>
+
